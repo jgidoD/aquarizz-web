@@ -1,0 +1,63 @@
+.postWrapper {
+  border-radius: 8px;
+  width: calc(100% / 1.2);
+  height: 100%;
+}
+
+.usernameWrapper {
+  width: 100%;
+  height: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0 0 0.5em 0;
+}
+
+.username {
+  text-align: start;
+  background-color: #fff;
+  width: 100%;
+  font-size: 0.9em;
+  color: rgb(0, 2, 62);
+  font-weight: 600;
+  border: none;
+}
+
+.username:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.username:focus {
+  outline: none;
+}
+.timePosted {
+  font-size: 0.75rem;
+  color: #898989;
+}
+
+.post {
+  background-color: #fff;
+  padding: 0.8em 1.2em;
+  margin: 1em 0;
+  border-radius: 8px;
+}
+
+.postContentWrapper {
+  margin: 1em 0 0.5em 0;
+}
+
+.addPostContainer {
+  width: calc(100% / 1.2);
+
+  display: flex;
+  justify-content: center;
+  margin: 12px 0;
+}
+
+.contentWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

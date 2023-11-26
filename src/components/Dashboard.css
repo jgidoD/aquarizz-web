@@ -1,0 +1,151 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  height: 100%;
+  background-color: #eeeeee;
+}
+.headerSticky {
+  width: 100%;
+}
+.headBar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.headerDashboard {
+  top: 0;
+  padding: 0.7em 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  position: sticky;
+  background-color: #fff;
+}
+.logoDashboard {
+  display: none;
+}
+
+.logoContainer,
+.searchBarContainer,
+.profileContainer {
+  width: calc(100% / 3.2);
+}
+.profileContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.mainContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1em 0 0 0;
+}
+.navBarContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2em 0 0 0;
+}
+
+.navBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.navBarIconContainer {
+  padding: 0.4em 1em;
+  margin: 0 2em;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.navBarIconContainer:hover {
+  background-color: #232d3f;
+}
+.navBarIconContainer:hover .navBarIcon {
+  color: #fff;
+}
+.navBarIcon {
+  color: #232d3f;
+}
+
+.addPostContainer,
+.postCardContainer {
+  width: calc(100% / 2.5);
+  display: flex;
+  justify-content: center;
+  margin: 12px 0;
+}
+/* .addPostContainer {
+  border: 1px solid blue;
+} */
+.addPostCard {
+  background-color: #fff;
+  border-radius: 8px;
+  width: calc(100% / 1.2);
+  padding: 12px 18px;
+}
+.addPostCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+.addPostCard > * {
+  margin: 8px 0;
+}
+.addPostBtn {
+  padding: 8px 16px;
+}
+/* .inputAreaPost {
+  width: 100%;
+  height: 8em;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  resize: none;
+  padding: 8px;
+} */
+
+.inputAreaPost:focus {
+  outline: none;
+}
+
+/* .postCardContainer {
+  border: 1px solid orange;
+} */
+
+.userNamePhoto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid black;
+  width: 25%;
+}
+.postCardHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px;
+}
+
+.postCardContents {
+  padding: 18px;
+}
+
+.postCardFooter {
+  padding: 18px;
+}

@@ -1,0 +1,72 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.overlayContainer {
+  z-index: 9;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.headerOverlay {
+  margin: 0 0 2em 0;
+}
+.overlayCard {
+  background-color: #ffffff;
+  padding: 5em 7em;
+  border-radius: 6px;
+  text-align: center;
+  animation: fadeIn 500ms ease;
+}
+
+.inputBoxes {
+  margin: 1em 0;
+}
+
+.inputBoxes input {
+  border: none;
+  border-radius: 40px;
+  padding: 0.8em 1.3em;
+  background-color: #ebebeb;
+}
+.inputBoxes input:focus {
+  outline: none;
+}
+
+.registerBtnForm {
+  margin: 1em 0;
+  height: 3em;
+  width: 100%;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background-color: var(--primary-color);
+}
+
+.close {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  text-align: center;
+  color: #3b3b3b;
+}
