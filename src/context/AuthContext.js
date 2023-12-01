@@ -10,6 +10,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  sendEmailVerification
 } from "firebase/auth";
 import { auth, db } from "../firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
@@ -19,9 +20,9 @@ const UserContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
-  const createUser = (name, email, password) => {
-    const create = createUserWithEmailAndPassword(auth, email, password);
 
+  const createUser = ( email, password) => {
+    const create = createUserWithEmailAndPassword(auth, email, password);
     return create;
   };
 
@@ -46,6 +47,7 @@ export const AuthContextProvider = ({ children }) => {
     const collectionRef = collection(db, "posts");
     return addDoc(collectionRef, { ...postData });
   };
+
 
   return (
     <UserContext.Provider

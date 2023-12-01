@@ -6,6 +6,8 @@ import {
   faHouse,
   faSortDesc,
   faStore,
+  faUser,
+  faSignOut
 } from "@fortawesome/free-solid-svg-icons";
 import PostForm from "./PostForm";
 import DisplayPosts from "./DisplayPosts";
@@ -21,6 +23,9 @@ export default function Dashboard() {
   const [show, setShow] = useState(false);
   const { logout, user, showPosts } = UserAuth();
   const navigate = useNavigate();
+  const [isLoading, setLoading] = useState(false);
+  const [profile, setProfile] = useState(null);
+
   // function handleSignOut() {
   //   signOut(auth).then(() => navigate(LANDINGPAGE));
   // }
@@ -28,13 +33,43 @@ export default function Dashboard() {
 
   const handleLogout = async () => {
     try {
-      await logout();
-      navigate("/");
+     
+      if(window.confirm("Do you wish to logout?")){
+        await logout();
+        navigate("/");
+      }
+
     } catch (err) {
       console.log(err.message);
     }
   };
 
+  useEffect(() => {
+    const getProfile = async () => {
+      const data = [];
+
+      try {
+        setLoading(true);
+        if (!user) {
+          // Handle the case when user is not defined
+          console.log("can't get user");
+          return;
+        }
+        const docRef = doc(db, "users1", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setProfile((profile) => {
+            return { ...profile, ...docSnap.data() };
+          });
+        }
+        setLoading(false);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    getProfile();
+  }, [user]);
   return (
     <div className="wrapper">
       <header className="headerDashboard">
@@ -45,42 +80,44 @@ export default function Dashboard() {
               <img className="logoDashboard" src={Logo} />
             </div>
 
+            <div
+            className="navBarIconContainer home"
+            onClick={() => window.location.reload(false)}
+          >
+            <FontAwesomeIcon className="navBarIcon" icon={faHouse} />
+          </div>
             {/* searchbar */}
             <div className="searchBarContainer">
+            
               <SearchBar />
             </div>
 
             {/* profile */}
+
+            {
+              profile && 
             <div className="profileContainer">
-              <h5>settings</h5>
 
               <button
                 onClick={() => {
                   setShow(true);
-                }}
+                }} className=" user"
               >
-                profile
+              <FontAwesomeIcon className="profile"  icon={faUser} />
+                <label>{profile.name}</label>
               </button>
 
               <ProfileModal onClose={() => setShow(false)} show={show} />
-              <button onClick={handleLogout}>logout</button>
+              <button className="logoutBtn" onClick={handleLogout}>       
+              <FontAwesomeIcon className="profile"  icon={faSignOut} />
+              </button>
             </div>
+          }
+
           </div>
 
           {/* writepost */}
-          <div className="navBarContainer">
-            <div className="navBar">
-              <div
-                className="navBarIconContainer home"
-                onClick={() => window.location.reload(false)}
-              >
-                <FontAwesomeIcon className="navBarIcon" icon={faHouse} />
-              </div>
-              <div className="navBarIconContainer market">
-                <FontAwesomeIcon className="navBarIcon" icon={faStore} />
-              </div>
-            </div>
-          </div>
+
         </div>
       </header>
 
