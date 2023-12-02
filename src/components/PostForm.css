@@ -5,6 +5,20 @@
   padding: 12px 18px;
 }
 
+.postTitleInput{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  resize: none;
+  padding: 8px;
+  margin: 0 0 12px 0;
+}
+
+.postTitleInput:focus{
+  outline: none;
+}
+
 .postForm {
   width: 100%;
 }

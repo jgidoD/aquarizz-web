@@ -66,7 +66,6 @@
 
 .navBarIconContainer {
   padding: 0.4em 1em;
-  margin: 0 2em;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -148,4 +147,42 @@
 
 .postCardFooter {
   padding: 18px;
+}
+
+.profileContainer button{
+  background-color: transparent;
+  border: 1px solid #232d3f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+  cursor: pointer;
+  padding: 6px 6px;
+}
+.profileContainer button label {
+  margin: 0 2px 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #232d3f;
+}
+.profileContainer button:hover{
+  background-color: #232d3f;
+}
+.profileContainer button:hover .profile{
+  color: #fff;
+}
+.profileContainer button:hover label {
+  color: #fff;
+}
+
+.profile{
+  width: 20px;
+  height: 20px;
+  color: #232d3f;
+}
+.logoutBtn{
+  border-radius: 50%;
+}
+.user{
+  border-radius: 8px;
 }

@@ -10,6 +10,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  sendEmailVerification,
 } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 // import AuthDetails from "../AuthDetails";
@@ -24,80 +25,30 @@ export default function LandingPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { signIn, user } = UserAuth();
+  const [loading, setLoading] = useState(false)
   // const [activeUser, setActiveUser] = useState(true);
   // const [initializing, setInitializing] = useState();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   // const { login } = useLogin();
-  const { register, handleSubmit, reset } = useForm();
 
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       navigate("/protected/dashboard");
-  //       console.log(user);
-  //     }
-  //   });
 
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, []);
-
-  // function onAuthStateChanged(activeUser) {
-  //   setActiveUser(activeUser);
-  //   if (initializing) setInitializing(false);
-  // }
-
-  // useEffect(() => {
-  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-  //   return subscriber;
-  // }, []);
-
-  // if (initializing) return null;
-
-  // if(!activeUser){
-
-  // }
-  //this code is working but the problem is the security; anonymous user can access dashboard without logging in first
-  // const signIn = (e) => {
-  //   e.preventDefault();
-  //   signInWithEmailAndPassword(auth, email, password)
-  //     .then((userCredential) => {
-  //       const user = userCredential.user;
-  //       const userEmail = userCredential.user.email;
-  //       navigate("/protected/dashboard");
-  //       console.log(userEmail);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  //   setEmail("");
-  //   setPassword("");
-  // };
-
-  //this is 'kinda' working
-  // async function handleSignIn() {
-  //   await login({
-  //     email: email,
-  //     password: password,
-  //     redirectTo: DASHBOARD,
-  //   });
-
-  //   //this is working but when reload the page it automatically sends you to landing page
-  //   console.log(password);
-
-  //   reset();
-  // }
   const handleSignIn = async (e) => {
     e.preventDefault();
     setError("");
     try {
-      await signIn(email, password);
-      navigate("/dashboard");
+        setLoading(true)
+
+        await signIn(email, password);
+
+          setLoading(false)
+          navigate("/dashboard");
+          
+
+      
     } catch (err) {
-      setError(err.message);
       console.log(err.message);
+      alert(err.message)
     }
   };
   return (
@@ -156,33 +107,12 @@ export default function LandingPage() {
                 <FontAwesomeIcon className="icon" icon={faLock} />
               </div>
 
-              <div className="rememberMeBox">
-                <input className="checkboxBtn" type="checkbox" />
-                <label>Remember me</label>
-              </div>
-              {/* <Link to="/dashboard"> */}
-              <input type="submit" className="loginBtn" value="Login" />
-              {/* </Link> */}
-              <div className="separatorContainer">
-                <div className="orLine"></div>
-                <p className="separator">or</p>
-                <div className="orLine"></div>
-              </div>
-              {/* <div className="signInOptionContainer">
-                <div className="signInOptionGoogleContainer">
-                  <Button className="googleSignIn"> Sign In With Google</Button>
-                  <FontAwesomeIcon icon="fa-brands fa-google" />
-                </div>
-              </div> */}
-              <div className="forgotBox">
-                <input
-                  type="button"
-                  className="forgotBtn"
-                  value="
-                Forgot Password
-                "
-                />
-              </div>
+        
+              
+              <input type="submit" className="loginBtn" value={loading? "Logging in..." : "Login"} />
+
+ 
+          
             </form>
           </div>
         </div>

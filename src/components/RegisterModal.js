@@ -1,8 +1,8 @@
 import "./RegisterModal.css";
 import Button from "./Button.js";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useAuth } from "../AuthContexts";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, signOut } from "firebase/auth";
 import { auth, db } from "../firebaseConfig";
 import { UserAuth } from "../context/AuthContext.js";
 import { useNavigate } from "react-router-dom";
@@ -19,114 +19,76 @@ const RegisterModal = (props) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [location, setLocation] = useState("")
+  const [phone, setPhone] = useState("")
   const [error, setError] = useState("");
   const { createUser, createUserProfile } = UserAuth();
   const navigate = useNavigate();
   const { user } = UserAuth();
+  const emailClear = useRef("")
+  const nameClear = useRef("")
+  const passwordClear = useRef("")
+  const confirmPassClear = useRef("")
+  const locationClear = useRef("")
+  const phoneClear = useRef("")
 
-  // const nameRegRef = useRef();
-  // const emailRegRef = useRef(null);
-  // const passRegRef = useRef();
-  // const confirmPassRegRef = useRef();
-  // const { signup } = useAuth();
 
-  //modal controller
   if (!props.show) {
     return null;
   }
 
-  // function handleSubmit(e) {
-  //   e.preventDefault();
+const sendVerification = async (e) =>{
+e.preventDefault()
+await sendEmailVerification(auth.currentUser).then(()=>{
+  alert("Email verification sent!")
+})
+}
 
-  //   signup(emailRegRef.current.value, passRegRef.current.value);
-  //   console.log(emailRegRef.current.value);
-  // }
 
-  // const handleCreateUserProfile = async (e) => {
-  //   e.preventDefault();
-  //   const obj = {
-  //     email: email,
-  //     name: name,
-  //     password: password,
-  //     userID: user?.uid,
-  //     dateCreated: Date.now(),
-  //     createdAt: serverTimestamp(),
-  //   };
-  //   try {
-  //     await createUserProfile(obj);
-  //     console.log(obj);
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
-  // };
-
-  async function handleCreateUserProfile(name, email, password, uid) {
-    const uiduser = uid;
-    const obj = {
-      email: email,
-      name: name,
-      password: password,
-      userID: uid,
-      dateCreated: Date.now(),
-      createdAt: serverTimestamp(),
-    };
-    try {
-      setDoc(doc(db, "users1", uiduser), {
-        email: email,
-        name: name,
-        password: password,
-        userID: user.uid,
-        dateCreated: Date.now(),
-        createdAt: serverTimestamp(),
-      });
-      // addDoc(collection(db, "users"), {
-      //   email: email,
-      //   name: name,
-      //   password: password,
-      //   userID: user?.uid,
-      //   dateCreated: Date.now(),
-      //   createdAt: serverTimestamp(),
-      // });
-    } catch (err) {
-      console.log(err.message);
-    }
-  }
-
-  // const handleSituation = async (e) => {
-  //   e.preventDefault();
-  //   setError("");
-
-  //   try {
-  //     await handleSignUp();
-  //     await handleCreateUserProfile();
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
-  // };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
     setError("");
+    emailClear.current.value = ""
+    nameClear.current.value = ""
+    passwordClear.current.value = ""
+    confirmPassClear.current.value = ""
+    locationClear.current.value = ""
+    phoneClear.current.value = ""
 
     try {
-      const create = await createUser(name, email, password);
-      navigate("/dashboard");
+      const create = await createUser( email, password);
+      const user = create.user
+     
+
 
       // handleCreateUserProfile(name, email, password, create.user.uid);
       setDoc(doc(db, "users1", create.user.uid), {
         email: email,
         name: name,
         password: password,
+        location: location,
+        phone: phone,
         userID: create.user.uid,
         dateCreated: Date.now(),
         createdAt: serverTimestamp(),
       });
+      setName("")
+      setEmail("")
+      setPassword("")
+      setConfirmPassword("")
+      setLocation("")
+      setPhone("")
       console.log("success");
       console.log(create.user.uid);
+      alert("Success")
+
     } catch (err) {
       setError(err.message);
     }
   };
+
+
 
   return (
     <div className="overlayContainer" onClick={props.onClose}>
@@ -144,6 +106,7 @@ const RegisterModal = (props) => {
                 // ref={nameRegRef}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                ref={nameClear}
               />
             </div>
             <div className="inputBoxes emailBox">
@@ -154,8 +117,36 @@ const RegisterModal = (props) => {
                 // ref={emailRegRef}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                ref={emailClear}
               />
             </div>
+
+            <div className="inputBoxes locationBox">
+            <input
+              placeholder="Enter Town/Province"
+              className="locationFld"
+              type="text"
+              // ref={emailRegRef}
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              ref={locationClear}
+            />
+            </div>
+
+            <div className="inputBoxes numberBox">
+            <input
+              placeholder="Enter phone number (+63)"
+              className="locationFld"
+              type="text"
+              // ref={passRegRef}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              ref={phoneClear}
+            />
+            { phone.length !== 10 && <p className="passwordMatching" >Phone number must contain at least 10 digits</p>}
+
+          </div>
+
             <div className="inputBoxes passwordBox">
               <input
                 placeholder="Create a password"
@@ -164,6 +155,7 @@ const RegisterModal = (props) => {
                 // ref={passRegRef}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                ref={passwordClear}
               />
             </div>
             <div className="inputBoxes confirmPassBox">
@@ -174,15 +166,20 @@ const RegisterModal = (props) => {
                 // ref={confirmPassRegRef}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                ref={confirmPassClear}
               />
+              { password !== confirmPassword && <p className="passwordMatching" >Password does not Match</p>}
+
             </div>
             <input
               type="submit"
               className="registerBtnForm"
-              onClick={handleSignUp}
               value="Register"
+              // onClick={verify}
+              disabled={!name || !email || !password || !confirmPassword || !location || !phone || password !== confirmPassword}
             />
-            <input value="Close" className="close" onClick={props.onClose} />
+           
+            <input value="Close" type="button" className="close" onClick={props.onClose} />
           </form>
         </main>
 

@@ -15,6 +15,9 @@ import { UserAuth } from "../context/AuthContext";
 import PostForm from "./PostForm";
 import { formatDistanceToNow } from "date-fns";
 import UserProfileButton from "./userProfile/UserProfileButton";
+import Comment from './comment/Comment'
+import DeleteButton from "./comment/DeleteButton";
+
 export default function DisplayPosts() {
   const [posts, setPosts] = useState();
   const [loading, setLoading] = useState(false);
@@ -66,7 +69,9 @@ export default function DisplayPosts() {
           {posts &&
             posts.map((post) => (
               <div className="post" key={post.id}>
+
                 <div className="usernameWrapper">
+                <div className="commentHeaderContainer"> 
                   {/* <button className="username">{post.name}</button> */}
                   {/* <h5>{post.authorId}</h5> */}
                   <UserProfileButton
@@ -78,10 +83,20 @@ export default function DisplayPosts() {
                     {formatDistanceToNow(post.datePosted)}
                     {/* {post.datePosted.toDate().toString()} */}
                   </span>
+                  </div>
+                  <DeleteButton userID={user.uid} authorIdComment={post.authorId} postId={post.id} doThis={fetchData} />
                 </div>
-                <div className="postContentWrapper">{post.postContent}</div>
+                <div><h3>{post.postTitle}</h3></div>
+                <div className="postContentWrapper"><p>{post.postContent}</p></div>
+                <div className="line"> </div>
+                
+            <div className="commentContainer">
+            <Comment postID={post.id} />
+
+            </div>
               </div>
             ))}
+
         </div>
       )}
     </div>

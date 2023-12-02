@@ -70,3 +70,9 @@
   text-align: center;
   color: #3b3b3b;
 }
+
+
+.passwordMatching{
+  color: red;
+  font-size: 10px;
+}

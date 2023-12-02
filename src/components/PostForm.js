@@ -6,13 +6,18 @@ import { set, useForm } from "react-hook-form";
 import { UserAuth } from "../context/AuthContext";
 import { serverTimestamp, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import { useStepContext } from "@chakra-ui/react";
 const PostForm = (props) => {
   const [content, setContent] = useState("");
   const { user, createPost, showPosts } = UserAuth();
   const [userProfile, setUserProfile] = useState();
+  const [postTitle, setPostTitle] = useState("")
 
   const txt = useRef("");
+  const clear = useRef("")
 
+
+  //check and get the current user profile
   useEffect(() => {
     const getUserProfile = async () => {
       const data = [];
@@ -38,14 +43,15 @@ const PostForm = (props) => {
     getUserProfile();
   }, [user]);
 
-  const handleChange = (e) => {
-    setContent(e.target.value);
-  };
+
   const handleSubmitPost = async (e) => {
     e.preventDefault();
     txt.current.value = "";
+    clear.current.value = "";
+
 
     const obj = {
+      postTitle: postTitle,
       postContent: content,
       authorId: user?.uid,
       name: userProfile.name,
@@ -56,6 +62,8 @@ const PostForm = (props) => {
     try {
       await createPost(obj);
       setContent("");
+      setPostTitle("")
+      alert("Post Added!")
     } catch (err) {
       console.log(err.message);
     }
@@ -64,6 +72,13 @@ const PostForm = (props) => {
   return (
     <div className="postFormContainer">
       <form className="postForm" onSubmit={handleSubmitPost}>
+        <input 
+        className="postTitleInput"
+        placeholder="Post Title"
+        onChange={(e)=>setPostTitle(e.target.value)}
+        ref={clear} 
+
+        />
         <textarea
           className="inputArea"
           type="text"
@@ -71,7 +86,7 @@ const PostForm = (props) => {
           name="postContent"
           rows={4}
           cols={40}
-          onChange={handleChange}
+          onChange={(e)=>setContent(e.target.value)}
           ref={txt}
         />
         <div className="postBtnWrapper">

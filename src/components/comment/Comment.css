@@ -1,0 +1,42 @@
+/* .commentInput, .postContentBtn{
+    margin: 0 1em;
+} */
+
+.commentForm{
+ width: 100%;
+
+}
+.postCommentBtn{
+    width: 100%;
+    text-align: end;
+}
+
+.commentInput:focus{
+    outline: none;
+    padding: 4px;
+}
+
+.commentInput{
+    margin: 1em 0 0;
+    width: 100%;
+}
+
+.commentContent{
+    font-size: 14px;
+    margin: 0 0 0 8px;
+}
+
+.timePosted{
+    font-size: 0.75rem;
+    color: #898989;
+}
+
+.usernameContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.commentContainer{
+    margin: 2em 0;
+}
