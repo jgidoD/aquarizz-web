@@ -16,7 +16,7 @@ const SearchBar = () => {
   //     });
   //   }
   return (
-    <div className="searchWrapper">
+    <div className="searchWrapper" style={{ display: "none" }}>
       <input
         className="searchInput"
         type="text"

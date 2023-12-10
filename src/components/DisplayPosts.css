@@ -8,12 +8,17 @@
   width: 100%;
   height: 2em;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
   margin: 0 0 0.5em 0;
 }
 
+.commentHeaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
 .username {
   text-align: start;
   background-color: #fff;
@@ -44,7 +49,7 @@
 }
 
 .postContentWrapper {
-  margin: 1em 0 0.5em 0;
+  margin: 1em 0 3em 0;
 }
 
 .addPostContainer {
@@ -60,4 +65,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.line {
+  background-color: #c0c0c0;
+  height: 1px;
+  margin: 12px 0;
+}
+
+.postImg {
+  width: 100%;
 }

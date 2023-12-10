@@ -59,13 +59,13 @@ export default function UserProfile(props) {
           {userProfile && (
             <div className="userProfileContents">
               {/* Display your data here */}
-              <span className="userInformationTitle">Name:</span>
-              <p className="userInformation">{userProfile.name}</p>
-              <span className="userInformationTitle">Email:</span>
+              <span className="userInformationTitle"></span>
+              <h2 className="userInformation">{userProfile.name}</h2>
+              <h4 className="userInformationTitle">Email:</h4>
               <p className="userInformation">{userProfile.email}</p>
-              <span className="userInformationTitle">Location:</span>
+              <h4 className="userInformationTitle">Location:</h4>
               <p className="userInformation">location here</p>
-              <span className="userInformationTitle">Contact:</span>
+              <h4 className="userInformationTitle">Contact:</h4>
               <p className="userInformation">Contact me here</p>
             </div>
           )}

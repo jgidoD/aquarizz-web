@@ -6,6 +6,7 @@ export default function PostsLists({ posts }) {
       {posts?.length === 0
         ? "no posts"
         : posts?.map((post) => <DisplayPosts key={post.id} post={post} />)}
+
     </div>
   );
 }
