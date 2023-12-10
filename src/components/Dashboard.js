@@ -6,6 +6,8 @@ import {
   faHouse,
   faSortDesc,
   faStore,
+  faUser,
+  faSignOut,
 } from "@fortawesome/free-solid-svg-icons";
 import PostForm from "./PostForm";
 import DisplayPosts from "./DisplayPosts";
@@ -17,10 +19,14 @@ import { useEffect, useState } from "react";
 import ProfileModal from "./ProfileModal";
 import { getDoc, doc } from "firebase/firestore";
 import UserProfile from "./userProfile/UserProfile";
+import Swal from "sweetalert2";
 export default function Dashboard() {
   const [show, setShow] = useState(false);
   const { logout, user, showPosts } = UserAuth();
   const navigate = useNavigate();
+  const [isLoading, setLoading] = useState(false);
+  const [profile, setProfile] = useState(null);
+
   // function handleSignOut() {
   //   signOut(auth).then(() => navigate(LANDINGPAGE));
   // }
@@ -28,16 +34,55 @@ export default function Dashboard() {
 
   const handleLogout = async () => {
     try {
-      await logout();
-      navigate("/");
+      await Swal.fire({
+        title: "Are you sure you want to logout?",
+        icon: "info",
+        showConfirmButton: true,
+        showDenyButton: true,
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await logout();
+          navigate("/");
+        }
+      });
     } catch (err) {
       console.log(err.message);
     }
   };
 
+  useEffect(() => {
+    const getProfile = async () => {
+      const data = [];
+
+      try {
+        setLoading(true);
+        if (!user) {
+          // Handle the case when user is not defined
+          console.log("can't get user");
+          return;
+        }
+        const docRef = doc(db, "users1", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setProfile((profile) => {
+            return { ...profile, ...docSnap.data() };
+          });
+        }
+        setLoading(false);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    getProfile();
+  }, [user]);
+
   return (
     <div className="wrapper">
-      <header className="headerDashboard">
+      <header
+        className="headerDashboard"
+        style={{ display: isLoading ? "none" : "block" }}
+      >
         {/* logo */}
         <div className="headerSticky">
           <div className="headBar">
@@ -45,48 +90,54 @@ export default function Dashboard() {
               <img className="logoDashboard" src={Logo} />
             </div>
 
+            <div
+              className="navBarIconContainer home"
+              onClick={() => window.location.reload(false)}
+            >
+              <FontAwesomeIcon className="navBarIcon" icon={faHouse} />
+            </div>
             {/* searchbar */}
             <div className="searchBarContainer">
               <SearchBar />
             </div>
 
             {/* profile */}
-            <div className="profileContainer">
-              <h5>settings</h5>
 
-              <button
-                onClick={() => {
-                  setShow(true);
-                }}
-              >
-                profile
-              </button>
+            {profile && (
+              <div className="profileContainer">
+                <button
+                  onClick={() => {
+                    setShow(true);
+                  }}
+                  className=" user"
+                >
+                  <FontAwesomeIcon className="profile" icon={faUser} />
+                  <label>{profile.name}</label>
+                </button>
 
-              <ProfileModal onClose={() => setShow(false)} show={show} />
-              <button onClick={handleLogout}>logout</button>
-            </div>
+                <ProfileModal onClose={() => setShow(false)} show={show} />
+                <button className="logoutBtn" onClick={handleLogout}>
+                  <FontAwesomeIcon className="profile" icon={faSignOut} />
+                </button>
+              </div>
+            )}
           </div>
 
           {/* writepost */}
-          <div className="navBarContainer">
-            <div className="navBar">
-              <div
-                className="navBarIconContainer home"
-                onClick={() => window.location.reload(false)}
-              >
-                <FontAwesomeIcon className="navBarIcon" icon={faHouse} />
-              </div>
-              <div className="navBarIconContainer market">
-                <FontAwesomeIcon className="navBarIcon" icon={faStore} />
-              </div>
-            </div>
-          </div>
         </div>
       </header>
 
-      <main className="mainContent">
+      <main
+        className="mainContent"
+        style={{ height: isLoading ? "100vh" : "", margin: 0 }}
+      >
         {/* postcard */}
-        <div className="postCardContainer">
+        {isLoading && <span className="loader"></span>}
+
+        <div
+          className="postCardContainer"
+          style={{ display: isLoading ? "none" : "block" }}
+        >
           <DisplayPosts />
         </div>
       </main>

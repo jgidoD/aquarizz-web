@@ -61,17 +61,17 @@ export default function ProfileModal(props) {
           {profile && (
             <div className="profileContents">
               {/* Display your data here */}
-              <span className="informationTitle">Name:</span>
-              <p className="profileInformation"> {profile.name}</p>
-
-              <span className="informationTitle">Email:</span>
+              <h2 className="informationTitle"><strong></strong></h2>
+              <h2 className="profileInformation"><strong>{profile.name}</strong> </h2>
+        
+              <h4 className="informationTitle">Email:</h4>
               <p className="profileInformation"> {profile.email}</p>
 
-              <span className="informationTitle">Location:</span>
-              <p className="profileInformation">location here</p>
+              <h4 className="informationTitle">Location:</h4>
+              <p className="profileInformation">{profile.location}</p>
 
-              <span className="informationTitle">Contact:</span>
-              <p className="profileInformation">Contact me here</p>
+              <h4 className="informationTitle">Contact:</h4>
+              <p className="profileInformation">{profile.phone}</p>
             </div>
           )}
         </div>
