@@ -1,0 +1,33 @@
+.modalOptionsContainer {
+  z-index: 1;
+  top: 8px;
+  right: 0;
+  left: -56px;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.optionBtnContainer {
+  width: 100%;
+}
+
+.optionBtnContainer button {
+  font-size: 12px;
+  width: 100%;
+  padding: 1px 2px;
+  border: 1px solid #3b3b3b;
+  transition: 150ms;
+  cursor: pointer;
+  color: #3b3b3b;
+  border-radius: 2px;
+  margin: 0 3px 2px 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.optionBtnContainer button:hover {
+  background-color: #232d3f;
+  color: #fff;
+}

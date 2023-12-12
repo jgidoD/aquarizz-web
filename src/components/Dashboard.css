@@ -8,9 +8,7 @@
   height: 100%;
   background-color: #eeeeee;
 }
-.headerSticky {
-  width: 100%;
-}
+
 .headBar {
   width: 100%;
   display: flex;
@@ -66,7 +64,6 @@
 
 .navBarIconContainer {
   padding: 0.4em 1em;
-  margin: 0 2em;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -149,3 +146,138 @@
 .postCardFooter {
   padding: 18px;
 }
+
+.profileContainer button {
+  background-color: transparent;
+  border: 1px solid #232d3f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+  cursor: pointer;
+  padding: 6px 6px;
+}
+.profileContainer button label {
+  margin: 0 2px 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #232d3f;
+}
+.profileContainer button:hover {
+  background-color: #232d3f;
+}
+.profileContainer button:hover .profile {
+  color: #fff;
+}
+.profileContainer button:hover label {
+  color: #fff;
+}
+
+.profile {
+  width: 20px;
+  height: 20px;
+  color: #232d3f;
+}
+.logoutBtn {
+  border-radius: 50%;
+}
+.user {
+  border-radius: 8px;
+}
+.loader {
+  margin-top: 10em;
+  position: relative;
+  font-size: 36px;
+  letter-spacing: 2px;
+}
+.loader:before {
+  content: "Loading...";
+  color: #353535;
+}
+.loader:after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  background-color: #ff3d00;
+  border-radius: 50%;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  top: -70px;
+  animation: motion 2s ease-in-out infinite;
+}
+
+@keyframes motion {
+  0%,
+  50%,
+  100% {
+    transform: translateX(0) scale(1);
+  }
+  25% {
+    transform: translateX(-100px) scale(0.3);
+  }
+  75% {
+    transform: translateX(100px) scale(0.3);
+  }
+}
+
+@media only screen and (max-width: 770px) {
+  .headBar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .headBar > * {
+    margin: 0 6em 0 6em;
+  }
+}
+/* 
+.loader {
+  color: #3b3b3b;
+  font-size: 8px;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  text-indent: -9999em;
+  animation: mulShdSpin 600ms infinite linear;
+  transform: translateZ(0);
+  margin: 4em 2em;
+}
+
+@keyframes mulShdSpin {
+  0%,
+  100% {
+    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em,
+      0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+  }
+  12.5% {
+    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em,
+      0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  25% {
+    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0,
+      0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  37.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em,
+      0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  50% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em,
+      0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  62.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em,
+      0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+  }
+  75% {
+    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em,
+      0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em,
+      0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+  }
+} */

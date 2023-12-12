@@ -5,13 +5,30 @@
   padding: 12px 18px;
 }
 
+.postTitleInput {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  resize: none;
+  padding: 8px;
+  margin: 0 0 12px 0;
+}
+
+.postTitleInput:focus {
+  outline: none;
+}
+
 .postForm {
   width: 100%;
 }
 
 .postBtnWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  text-align: end;
+  /* text-align: end; */
 }
 .postBtn {
   padding: 0.25em 1em;
@@ -19,6 +36,7 @@
   font-weight: 500;
   color: #fff;
   background-color: #232d3f;
+  cursor: pointer;
 }
 .inputArea {
   width: 100%;
@@ -31,4 +49,23 @@
 
 .inputArea:focus {
   outline: none;
+}
+
+.postAddedSpan {
+  animation: float 2s;
+}
+@keyframes float {
+  0% {
+    opacity: 0;
+    top: 60px;
+  }
+  5% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+
+    top: 30px;
+  }
 }

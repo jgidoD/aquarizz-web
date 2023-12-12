@@ -59,8 +59,8 @@
   background-color: #ffffff;
   border-radius: 6px;
   animation: fadeIn 500ms ease;
-  height: 50%;
-  width: 20%;
+  height: 500px;
+  width: 350px;
 }
 
 .inputBoxes {
@@ -97,4 +97,7 @@
   background-color: transparent;
   cursor: pointer;
   color: #3b3b3b;
+}
+
+@media only screen and (max-width: 770px) {
 }
